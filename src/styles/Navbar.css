@@ -1,0 +1,92 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #ffffff !important;
+  color: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Brand Name */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+/* Individual Link */
+.navbar-links {
+  flex: 1;
+  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+}
+
+.navbar-links .nav-link {
+  margin: 0 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+}
+
+.navbar-links .nav-link:hover {
+  color: #333; /* Darker shade on hover */
+}
+
+.navbar-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-icon {
+  text-transform: uppercase;
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-icon:hover {
+  color: #333;
+}
+
+/* Dropdown Styles */
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 250%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 15px 20px;
+  color: #111;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: small;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}

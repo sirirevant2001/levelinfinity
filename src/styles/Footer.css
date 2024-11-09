@@ -1,0 +1,103 @@
+/* Footer.css */
+
+.footer {
+  background-color: #ffffff !important;
+  color: #000 !important;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  /* width: 100%; */
+}
+
+.footer-top {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 0;
+  position: relative;
+}
+
+.footer-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll 20s linear infinite;
+  font-size: 14px;
+}
+
+/* Keyframes for scrolling */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Main Footer Content */
+.footer-main {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.footer-logo h1 {
+  font-family: "Monsieur La Doulaise", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+.footer-logo p {
+  font-size: 12px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 50px;
+}
+
+.footer-column {
+  text-align: left;
+}
+
+.footer-column h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  color: #333;
+  text-decoration: none;
+  font-size: 12px;
+  display: block;
+  margin: 5px 0;
+}
+
+.footer-column a:hover {
+  color: #000;
+}
+
+/* Bottom Social Media Links */
+.footer-bottom {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.footer-bottom a:hover {
+  color: #ccc;
+}

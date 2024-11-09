@@ -1,0 +1,246 @@
+/* Container for product image and details */
+.detail-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  height: 750px;
+}
+
+.detail-title{
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.product-main-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+/* Image carousel */
+.image-carousel {
+  /* position: relative; */
+  width: 500px;
+  margin-top: 10%;
+  margin-left: 30%;
+  gap: 20px;
+}
+
+.carousel-main-image {
+  width: 400px;
+  height: 400px;
+  margin-bottom:0;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-main-image:hover{
+  transform: scale(1.1);
+}
+
+.carousel-arrow-left{
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5);
+  color: #000000;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+}
+
+.carousel-arrow-right{
+  position: absolute;
+  top: 40%;
+  left: 46%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5);
+  color: #000000;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* Product Details Section */
+.product-details {
+  margin-left: 20px;
+  transform: scale(0.9);
+}
+
+/* Collapsible Header Styling */
+.collapsible-sections {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 60px;
+  justify-content: space-between;
+  border-bottom: 2px solid #000;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+}
+
+.collapsible-header {
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+}
+
+.collapsible-header.active {
+  border-bottom: 2px solid #000;
+}
+
+.collapsible-content {
+  font-size: 12px;
+  line-height: 1.5;
+  height: 100px; /* Fixing the height */
+  /* overflow-y: auto; Allow scrolling */
+  margin-top: 10px;
+}
+
+/* Actions container styling */
+.actions-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  margin-right: 100px;
+  padding: 0;
+  gap: 20px; /* Add space between each item */
+  width: 30%;
+  height: 90%;
+  transform: scale(1.1); /* Magnify the entire container */
+}
+
+
+/* Quantity selector styling */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  transform: scale(0.9);
+}
+
+.quantity-selector button {
+  background-color: #ffffff;
+  border: 1px solid black;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.quantity-selector span {
+  margin: 0 10px;
+}
+
+/* Size selector styling */
+.size-selector {
+  display: flex;
+  margin-bottom: 10px; /* Add space between the size selector and next item */
+  transform: scale(0.75); /* Magnify the entire container */
+}
+
+.size-selector button {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #000;
+  cursor: pointer;
+  background-color: white;
+  width: 50px;
+  border-radius: 8px;
+}
+
+.size-selector button:hover{
+  background-color: #f1f1f1;
+}
+
+.size-selector button.size-selected {
+  background-color: #000;
+  color: white;
+}
+
+.size-chart-button {
+  margin-bottom: 10px; /* Add space between the size chart and next item */
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+}
+
+/* Side-by-side buttons for 'Add to Cart' and 'Buy Now' */
+.action-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+.cart-button{
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.buy-button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.size-chart-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+}
+
+/* Size Chart Modal */
+.size-chart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.size-chart-modal {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.size-chart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.size-chart-table th, .size-chart-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.modal-close-button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

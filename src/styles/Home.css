@@ -1,0 +1,102 @@
+/* Top Division - Video Section */
+.video-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-section video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Middle Division - Flex Card Section */
+.products-section {
+  padding: 20px;
+  background-color: #f8f5f5;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+  text-align: center;
+}
+
+.products-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.products-container {
+  margin-left: 190px;
+  display: flex;
+  gap: 15px;
+  overflow: hidden; /* Hide scrollbar */
+  flex: 1; /* Allow it to expand in the center */
+}
+
+.product-card {
+  flex: 0 0 calc(100% / 3 - 15px); /* Show 3 cards per view */
+  max-width: 300px;
+  height: 350px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Slightly scale the button on hover */
+}
+
+.arrow-button {
+  width: 40px; /* Set a fixed width */
+  height: 40px; /* Set a fixed height */
+  border: none;
+  background-color: #f8f5f5 !important;
+  color: #000000;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the icon or text inside the button */
+}
+
+.arrow-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.arrow-button:hover {
+  transform: scale(2); /* Slightly scale the button on hover */
+}
+
+
+/* Bottom Division - Slideshow Section */
+.slideshow-section {
+  padding: 20px;
+  background-color: #eee;
+  text-align: center;
+}
+
+.slideshow img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin: 0 10px;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Optional: Style to make the slideshow images transition */
+.slideshow img:nth-child(odd) {
+  opacity: 0.8;
+}
+
+.slideshow img:nth-child(even) {
+  opacity: 1;
+}
