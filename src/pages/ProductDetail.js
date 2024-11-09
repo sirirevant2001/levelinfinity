@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CartContext } from './CartContext';
 import '../styles/ProductDetail.css';
 
 const sizeChartData = [
@@ -13,6 +14,8 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { product } = location.state || {};
+  const { addToCart } = useContext(CartContext);
+
 
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
@@ -37,7 +40,7 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
   };
 
   const handleAddToCart = () => {
-    onAddToCart({ ...product, quantity, size: selectedSize });
+    addToCart({ ...product, quantity, size: selectedSize });
   };
 
   const handleBuyNow = () => {

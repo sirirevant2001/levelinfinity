@@ -1,10 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { CartContext } from '../pages/CartContext';
+import "../styles/Navbar.css";
+
+
 
 function Navbar() {
+  const { cart } = useContext(CartContext);
+  const cartCount = cart.length;
   const [showDropdown, setShowDropdown] = useState(false);
   const timeoutId = useRef(null);
   const navigate = useNavigate();
@@ -68,6 +73,7 @@ function Navbar() {
       <div className="navbar-section navbar-icons">
         <Link to="/Cart" className="nav-icon">
           <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </Link>
       </div>
     </nav>
