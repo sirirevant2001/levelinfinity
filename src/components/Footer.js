@@ -36,7 +36,7 @@ function Footer() {
           </div>
           <div className="footer-column">
             <h4>COMPANY</h4>
-            <Link to="/story">STORY</Link>
+            <Link to="/about">STORY</Link>
             <Link to="/contact">CONTACT US</Link>
             <Link to="/stores">OUR STORES</Link>
             {/* <Link to="/careers">CAREERS</Link>

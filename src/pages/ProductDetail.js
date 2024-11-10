@@ -40,7 +40,13 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
   };
 
   const handleAddToCart = () => {
-    addToCart({ ...product, quantity, size: selectedSize });
+    const item = {
+      ...product,
+      quantity,
+      size: selectedSize,
+      image: product.photos[currentImageIndex] // Add image URL to cart item
+    };
+    addToCart(item);
   };
 
   const handleBuyNow = () => {

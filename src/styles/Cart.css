@@ -1,0 +1,104 @@
+.cart-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px 0;
+    margin: 10px;
+  }
+  
+  .cart-item-image {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  
+  .cart-item-details {
+    flex-grow: 1;
+    font-family: "Josefin Sans", serif;
+    font-size: small;
+    font-style: normal;
+    text-align: left;
+  }
+  
+  .cart-item-name {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Prata", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+  }
+  
+  .cart-item-price {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .cart-item-size {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .cart-item-quantity {
+    display: flex;
+    align-items: center;
+    color: #555;
+    gap: 5px;
+  }
+  
+  .quantity-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    border: 1px solid #333;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+    margin-left: 10px;
+  }
+  
+  .cart-summary {
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    font-family: "Josefin Sans", serif;
+    font-size: small;
+    font-style: normal;
+    text-align: left;
+  }
+  
+  .checkout-btn {
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 70%;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid black;
+    color: #000000;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: "Josefin Sans", serif;
+    font-size: small;
+    font-style: normal
+  }
+  
+  .checkout-btn:hover{
+    background-color: #f1f1f1;
+    ;
+  }

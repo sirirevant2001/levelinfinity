@@ -1,0 +1,49 @@
+.about-us-container {
+    display: flex;
+    height: 100vh; /* Full screen height */
+  }
+  
+  .about-us-photo, .about-us-text {
+    flex: 1.1; /* Each takes up half of the screen */
+  }
+  
+  .about-us-photo{
+    background-color: #f5f5f5;
+  }
+
+  .about-photo {
+    width: 95%;
+    height: 95%;
+    margin: 12.5px;
+    border-radius: 20px;
+    object-fit: cover; /* Ensures the image covers the photo section */
+  }
+  
+  .about-us-text {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f5f5f5; /* Light background for contrast */
+    font-family: "Josefin Sans", serif;
+    font-size: small;
+    font-style: normal;
+    text-align: left;
+  }
+  
+  .about-us-text h1 {
+    font-size: 32px;
+    font-family: "Josefin Sans", serif;
+    font-size: large;
+    font-style: normal;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+
+  }
+  

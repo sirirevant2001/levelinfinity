@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -8,8 +8,14 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+// import { CartContext } from "../src/pages/CartContext"; // Assuming you have a CartContext
+import '../src/styles/Cart.css'; // Import CSS for styling
 
 function App() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  // const { cart } = useContext(CartContext);
+
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const handleAddToCart = (product) => {
     // Logic to add the selected product to the cart
@@ -18,10 +24,11 @@ function App() {
   const handleBuyNow = (product) => {
     // Logic to proceed directly to the checkout with the selected product
   };
-  
+
   return (
     <Router>
-      <Navbar />
+      <Navbar toggleCart={toggleCart} /> {/* Pass toggleCart to Navbar */}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route 
