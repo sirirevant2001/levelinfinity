@@ -1,0 +1,139 @@
+/* Checkout.css */
+
+.checkout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    background-color: #e5e5e5;
+    min-height: 100vh;
+  }
+  
+  .checkout-content {
+    display: flex;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 70%;
+    max-width: 1000px;
+  }
+  
+  .order-summary {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .order-summary h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+  
+  .order-item-details p {
+    margin: 5px 0;
+  }
+  
+  .order-totals .subtotal,
+  .order-totals .shipping,
+  .order-totals .total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .total {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .apply-coupon {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #f0f0f0;
+    border: 1px dashed #000;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .contact-form {
+    flex: 1;
+    padding: 20px;
+    padding-left: 40px;
+  }
+  
+  .step-indicator {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  .step-indicator span {
+    position: relative;
+    padding: 5px 10px;
+  }
+  
+  .step-indicator span:nth-child(1):after,
+  .step-indicator span:nth-child(2):after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 2px;
+    background: #ddd;
+  }
+  
+  h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .mobile-number-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .get-otp-button {
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .secured-by {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .secured-by img {
+    margin-left: 10px;
+  }
+  

@@ -79,24 +79,28 @@
 
 /* Bottom Division - Slideshow Section */
 .slideshow-section {
-  padding: 20px;
-  background-color: #eee;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  width: 100%;
+  padding: 20px 0;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.slideshow-section::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+}
+
+.slideshow {
+  display: flex;
+  flex-direction: row; /* Arrange images in a row */
+  gap: 10px; /* Optional: space between images */
 }
 
 .slideshow img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin: 0 10px;
-  transition: opacity 1s ease-in-out;
+  height: 100vh; /* Fit image height to the viewport height */
+  width: auto; /* Maintain aspect ratio */
+  border-radius: 8px;
 }
 
-/* Optional: Style to make the slideshow images transition */
-.slideshow img:nth-child(odd) {
-  opacity: 0.8;
-}
-
-.slideshow img:nth-child(even) {
-  opacity: 1;
-}

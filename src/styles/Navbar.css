@@ -31,6 +31,9 @@
   top: 1.1%;
   right: 1.3%;
   transform: translate(0.1%, -0.1%);
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
 }
 
 /* Individual Link */

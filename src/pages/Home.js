@@ -11,6 +11,7 @@ import img6 from '../assests/pictures/picture6.webp';
 import img7 from '../assests/pictures/picture7.webp';
 import img8 from '../assests/pictures/picture8.jpg';
 import img9 from '../assests/pictures/picture9.webp';
+import vid from '../assests/videos/examplevid.mp4';
 
 import "../styles/Home.css";
 
@@ -79,7 +80,7 @@ function Home() {
       {/* Top Division - Video Section */}
       <div className="video-section">
         <video autoPlay loop muted>
-          <source src="../assests/videos/examplevid.mp4" type="video/mp4" />
+          <source src={vid} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -109,9 +110,15 @@ function Home() {
       {/* Bottom Division - Slideshow Section */}
       <div className="slideshow-section">
         <div className="slideshow">
-          <img src='slide1' alt="Slide 1" />
-          <img src='slide2' alt="Slide 2" />
-          <img src='slide3' alt="Slide 3" />
+          <img src={img1} alt="Slide 1" />
+          <img src={img2} alt="Slide 2" />
+          <img src={img3} alt="Slide 3" />
+          <img src={img4} alt="Slide 4" />
+          <img src={img5} alt="Slide 5" />
+          <img src={img6} alt="Slide 6" />
+          <img src={img7} alt="Slide 7" />
+          <img src={img8} alt="Slide 8" />
+          <img src={img9} alt="Slide 9" />
         </div>
       </div>
     </div>

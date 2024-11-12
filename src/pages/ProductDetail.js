@@ -10,19 +10,31 @@ const sizeChartData = [
   { size: "XL", chest: "46-48", shoulder: "19", length: "29" }
 ];
 
+// Size Alert Modal Component
+function SizeAlertModal({ onClose }) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h3>Please select a size</h3>
+        <p>You need to choose a size before adding this item to the cart or buying it.</p>
+        <button onClick={onClose} className="modal-close-button">OK</button>
+      </div>
+    </div>
+  );
+}
+
 function ProductDetail({ onAddToCart, onBuyNow }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { product } = location.state || {};
   const { addToCart } = useContext(CartContext);
 
-
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [showSizeAlert, setShowSizeAlert] = useState(false); // State for size alert modal
 
-  // Set the default active section to 'description'
   const [activeSection, setActiveSection] = useState('description');
 
   useEffect(() => {
@@ -40,16 +52,24 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
   };
 
   const handleAddToCart = () => {
+    if (!selectedSize) {
+      setShowSizeAlert(true);
+      return;
+    }
     const item = {
       ...product,
       quantity,
       size: selectedSize,
-      image: product.photos[currentImageIndex] // Add image URL to cart item
+      image: product.photos[currentImageIndex]
     };
     addToCart(item);
   };
 
   const handleBuyNow = () => {
+    if (!selectedSize) {
+      setShowSizeAlert(true);
+      return;
+    }
     onBuyNow({ ...product, quantity, size: selectedSize });
   };
 
@@ -65,7 +85,6 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
     );
   };
 
-  // Toggle active section
   const handleToggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
@@ -77,7 +96,6 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
   return (
     <div className="detail-container">
       <div className="product-main-content">
-        {/* Image Carousel */}
         <div className="image-carousel">
           <button className="carousel-arrow-left" onClick={handlePrevImage}>&#8249;</button>
           <img
@@ -88,9 +106,7 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
           <button className="carousel-arrow-right" onClick={handleNextImage}>&#8250;</button>
         </div>
 
-        {/* Product Details */}
         <div className="product-details">
-          {/* Collapsible Sections */}
           <div className="collapsible-sections">
             <div
               className={`collapsible-header ${activeSection === 'description' ? 'active' : ''}`}
@@ -112,7 +128,6 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
             </div>
           </div>
 
-          {/* Content for each section */}
           <div className="collapsible-content">
             {activeSection === 'description' && <p>{product.description}</p>}
             {activeSection === 'details' && (
@@ -123,7 +138,6 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
                 <ul>CUT AND SEW PANEL</ul>
                 <ul>MACHINE REVERSE WASH</ul>
               </p>
-                
             )}
             {activeSection === 'shipping' && (
               <p>
@@ -133,13 +147,11 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
               </p>
             )}
           </div>
-
         </div>
       </div>
 
-      {/* Quantity and Size Selection */}
       <div className="actions-container">
-      <h2 className="detail-title">{product.name}</h2>
+        <h2 className="detail-title">{product.name}</h2>
         <div className="quantity-selector">
           <button onClick={() => handleQuantityChange(-1)}>-</button>
           <span>{quantity}</span>
@@ -162,18 +174,16 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
           Size Chart
         </button>
 
-        {/* Add this wrapper div for side-by-side buttons */}
         <div className="action-buttons">
           <button onClick={handleAddToCart} className="cart-button">Add to Cart</button>
           <button onClick={handleBuyNow} className="buy-button">Buy Now</button>
         </div>
       </div>
 
-      {/* Size Chart Modal */}
       {showSizeChart && (
         <div className="size-chart-overlay">
           <div className="size-chart-modal">
-            <button onClick={() => setShowSizeChart(false)} className="modal-close-button">X</button>
+            <button onClick={() => setShowSizeChart(false)} className="modal-close-button">OK</button>
             <h3>Size Chart</h3>
             <table className="size-chart-table">
               <thead>
@@ -198,6 +208,9 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
           </div>
         </div>
       )}
+
+      {/* Size Alert Modal */}
+      {showSizeAlert && <SizeAlertModal onClose={() => setShowSizeAlert(false)} />}
     </div>
   );
 }
