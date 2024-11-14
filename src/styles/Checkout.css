@@ -6,7 +6,7 @@
     align-items: center;
     padding: 50px;
     background-color: #e5e5e5;
-    min-height: 100vh;
+    min-height: 50vh;
   }
   
   .checkout-content {
@@ -44,6 +44,11 @@
   
   .order-item-details p {
     margin: 5px 0;
+    color: #3b3b3b;
+    font-family: "Josefin Sans", serif;
+    font-size: small;
+    font-style: normal;
+    text-align: left;
   }
   
   .order-totals .subtotal,

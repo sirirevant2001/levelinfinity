@@ -70,7 +70,20 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
       setShowSizeAlert(true);
       return;
     }
-    onBuyNow({ ...product, quantity, size: selectedSize });
+    const item = {
+      ...product,
+      quantity,
+      size: selectedSize,
+      image: product.photos[currentImageIndex]
+    };
+    addToCart(item);
+    // Navigate to Checkout page with Buy Now product details
+    navigate('/checkout', {
+      state: {
+        cart: [{ ...product, quantity, size: selectedSize, image: product.photos[currentImageIndex]}],
+        total: product.price * quantity,
+      },
+    });
   };
 
   const handleNextImage = () => {

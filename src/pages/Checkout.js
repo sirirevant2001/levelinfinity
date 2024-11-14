@@ -1,25 +1,32 @@
+// Checkout.js
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import '../styles/Checkout.css';
 
 function Checkout() {
+  const location = useLocation();
+  const { cart, total } = location.state || { cart: [], total: 0 }; // Default if no data is passed
+
   return (
     <div className="checkout-container">
       <div className="checkout-content">
         {/* Order Summary Section */}
         <div className="order-summary">
           <h3>Order Summary</h3>
-          <div className="order-item">
-            <img src="https://via.placeholder.com/100" alt="Product" />
-            <div className="order-item-details">
-              <p>FIRE WHEEL POLO T-SHIRT - XXXS</p>
-              <p>Quantity: 1</p>
-              <p>Price: ₹4,495.00</p>
+          {cart.map((item, index) => (
+            <div key={index} className="order-item">
+              <img src={item.image} alt={item.name} />
+              <div className="order-item-details">
+                <p>{item.name} - {item.size}</p>
+                <p>Quantity: {item.quantity}</p>
+                <p>Price: ₹{item.price}</p>
+              </div>
             </div>
-          </div>
+          ))}
           <div className="order-totals">
             <div className="subtotal">
               <span>Subtotal</span>
-              <span>₹4,495.00</span>
+              <span>₹{total}</span>
             </div>
             <div className="shipping">
               <span>Shipping</span>
@@ -27,10 +34,10 @@ function Checkout() {
             </div>
             <div className="total">
               <span>Total</span>
-              <span>₹4,495.00</span>
+              <span>₹{total}</span>
             </div>
           </div>
-          <button className="apply-coupon">Apply Coupon</button>
+          {/* <button className="apply-coupon">Apply Coupon</button> */}
         </div>
 
         {/* Contact Form Section */}
@@ -43,15 +50,15 @@ function Checkout() {
           <h2>Enter Mobile Number</h2>
           <div className="mobile-number-input">
             <input type="text" placeholder="+91 Mobile Number" />
-            <label>
+            {/* <label>
               <input type="checkbox" /> Send me order updates and offers
-            </label>
+            </label> */}
           </div>
           <button className="get-otp-button">Get OTP ➔</button>
-          <div className="secured-by">
+          {/* <div className="secured-by">
             <span>Secured by</span>
             <img src="https://via.placeholder.com/80x20" alt="Secured Logo" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
