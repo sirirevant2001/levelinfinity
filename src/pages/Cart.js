@@ -1,22 +1,57 @@
-// Cart.js
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import '../styles/Cart.css';
 
+// Modal Component
+function EmptyCartModal({ onClose }) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h3>Your cart is empty</h3>
+        <p>Please add items to your cart before proceeding to checkout.</p>
+        <button onClick={onClose} className="modal-close-button">Close</button>
+      </div>
+    </div>
+  );
+}
+
 function Cart() {
   const { cart, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const [showEmptyCartModal, setShowEmptyCartModal] = useState(false);
 
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const handleCheckout = () => {
+    if (cart.length === 0) {
+      // Show the empty cart modal
+      setShowEmptyCartModal(true);
+      return;
+    }
     navigate('/checkout', { state: { cart, total: calculateTotal() } });
   };
+
+  const closeEmptyCartModal = () => {
+    setShowEmptyCartModal(false);
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "Your progress will be lost if you leave this page.";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <div className="cart-container">
@@ -32,7 +67,9 @@ function Cart() {
               <p className="cart-item-price">Total: ₹{item.price}</p>
               <p className="cart-item-size">Size: {item.size}</p>
               <p className="cart-item-quantity">Quantity: {item.quantity}</p>
-              <button className="remove-btn" onClick={() => removeFromCart(index)}><FontAwesomeIcon icon={faTrash} /></button>
+              <button className="remove-btn" onClick={() => removeFromCart(index)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
             </div>
           </div>
         ))
@@ -42,6 +79,9 @@ function Cart() {
         <p>(Tax included. Shipping and discounts calculated at checkout.)</p>
         <button className="checkout-btn" onClick={handleCheckout}>Check Out</button>
       </div>
+
+      {/* Empty Cart Modal */}
+      {showEmptyCartModal && <EmptyCartModal onClose={closeEmptyCartModal} />}
     </div>
   );
 }

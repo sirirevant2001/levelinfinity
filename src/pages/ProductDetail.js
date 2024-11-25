@@ -23,18 +23,18 @@ function SizeAlertModal({ onClose }) {
   );
 }
 
-function ProductDetail({ onAddToCart, onBuyNow }) {
+function ProductDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const { product } = location.state || {};
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, cart } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showSizeChart, setShowSizeChart] = useState(false);
-  const [showSizeAlert, setShowSizeAlert] = useState(false); // State for size alert modal
-
+  const [showSizeAlert, setShowSizeAlert] = useState(false);
+  const [showItemAlreadyInCart, setShowItemAlreadyInCart] = useState(false);
   const [activeSection, setActiveSection] = useState('description');
 
   useEffect(() => {
@@ -43,8 +43,22 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
     }
   }, [product, navigate]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = 'Are you sure you want to leave? Your changes will be lost.';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   const handleQuantityChange = (increment) => {
-    setQuantity(prev => Math.max(1, prev + increment));
+    setQuantity((prev) => Math.max(1, prev + increment));
   };
 
   const handleSizeSelect = (size) => {
@@ -56,12 +70,26 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
       setShowSizeAlert(true);
       return;
     }
+
     const item = {
       ...product,
       quantity,
       size: selectedSize,
       image: product.photos[currentImageIndex]
     };
+
+    const existingItem = cart.find(
+      (cartItem) =>
+        cartItem.id === item.id &&
+        cartItem.size === item.size &&
+        cartItem.quantity === item.quantity
+    );
+
+    if (existingItem) {
+      setShowItemAlreadyInCart(true);
+      return;
+    }
+
     addToCart(item);
   };
 
@@ -70,18 +98,30 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
       setShowSizeAlert(true);
       return;
     }
+
     const item = {
       ...product,
       quantity,
       size: selectedSize,
       image: product.photos[currentImageIndex]
     };
-    addToCart(item);
-    // Navigate to Checkout page with Buy Now product details
+
+    const existingItem = cart.find(
+      (cartItem) =>
+        cartItem.id === item.id &&
+        cartItem.size === item.size &&
+        cartItem.quantity === item.quantity
+    );
+
+    if (existingItem) {
+      setShowItemAlreadyInCart(true);
+      return;
+    }
+
     navigate('/checkout', {
       state: {
-        cart: [{ ...product, quantity, size: selectedSize, image: product.photos[currentImageIndex]}],
-        total: product.price * quantity,
+        cart: [item],
+        total: item.price * quantity
       },
     });
   };
@@ -100,6 +140,15 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
 
   const handleToggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
+  };
+
+  const goToCheckout = () => {
+    navigate('/checkout', {
+      state: {
+        cart,
+        total: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+      },
+    });
   };
 
   if (!product) {
@@ -144,20 +193,20 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
           <div className="collapsible-content">
             {activeSection === 'description' && <p>{product.description}</p>}
             {activeSection === 'details' && (
-              <p>
-                <ul>100% COTTON</ul>
-                <ul>WEIGHT-260GSM</ul>
-                <ul>SCREEN PRINT</ul>
-                <ul>CUT AND SEW PANEL</ul>
-                <ul>MACHINE REVERSE WASH</ul>
-              </p>
+              <ul>
+                <li>100% COTTON</li>
+                <li>WEIGHT-260GSM</li>
+                <li>SCREEN PRINT</li>
+                <li>CUT AND SEW PANEL</li>
+                <li>MACHINE REVERSE WASH</li>
+              </ul>
             )}
             {activeSection === 'shipping' && (
-              <p>
-                <ul>PACKED WITHIN 24 HOURS</ul>
-                <ul>FREE DELIVERY PAN-INDIA</ul>
-                <ul>DISPATCHES NEXT DAY</ul>
-              </p>
+              <ul>
+                <li>PACKED WITHIN 24 HOURS</li>
+                <li>FREE DELIVERY PAN-INDIA</li>
+                <li>DISPATCHES NEXT DAY</li>
+              </ul>
             )}
           </div>
         </div>
@@ -173,8 +222,8 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
 
         <label>Select Size:</label>
         <div className="size-selector">
-          {["S", "M", "L", "XL"].map(size => (
-            <button 
+          {["S", "M", "L", "XL"].map((size) => (
+            <button
               key={size}
               onClick={() => handleSizeSelect(size)}
               className={selectedSize === size ? "size-selected" : ""}
@@ -222,8 +271,17 @@ function ProductDetail({ onAddToCart, onBuyNow }) {
         </div>
       )}
 
-      {/* Size Alert Modal */}
       {showSizeAlert && <SizeAlertModal onClose={() => setShowSizeAlert(false)} />}
+
+      {showItemAlreadyInCart && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Item Already in Cart</h3>
+            <p>The selected item is already in your cart with the same size and quantity.</p>
+            <button onClick={() => setShowItemAlreadyInCart(false)} className="modal-close-button">OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
