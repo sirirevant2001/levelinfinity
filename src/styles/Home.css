@@ -84,8 +84,10 @@
   align-items: center;
   overflow-x: auto; /* Enable horizontal scrolling */
   width: 100%;
-  padding: 20px 0;
+  padding: 0; /* Remove additional padding causing gaps */
+  margin: 0; /* Remove additional margins */
   scrollbar-width: none; /* Hide scrollbar for Firefox */
+  background-color: #f5f5f5; /* Optional: Add a background color */
 }
 
 .slideshow-section::-webkit-scrollbar {
@@ -95,12 +97,15 @@
 .slideshow {
   display: flex;
   flex-direction: row; /* Arrange images in a row */
-  gap: 10px; /* Optional: space between images */
+  gap: 20px; /* Space between images */
+  padding: 20px; /* Add padding inside the slideshow container */
 }
 
 .slideshow img {
-  height: 100vh; /* Fit image height to the viewport height */
+  height: calc(100vh - 40px); /* Span the container height minus padding */
   width: auto; /* Maintain aspect ratio */
-  border-radius: 8px;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better appearance */
 }
+
 

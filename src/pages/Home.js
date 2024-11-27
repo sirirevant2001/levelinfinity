@@ -1,63 +1,52 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import img1 from '../assests/pictures/picture1.webp';
-import img2 from '../assests/pictures/picture2.webp';
-import img3 from '../assests/pictures/picture3.webp';
-import img4 from '../assests/pictures/picture4.webp';
-import img5 from '../assests/pictures/picture5.webp';
-import img6 from '../assests/pictures/picture6.webp';
-import img7 from '../assests/pictures/picture7.webp';
-import img8 from '../assests/pictures/picture8.jpg';
-import img9 from '../assests/pictures/picture9.webp';
-import vid from '../assests/videos/examplevid.mp4';
-
+import axios from "axios"; // Import Axios for API calls
 import "../styles/Home.css";
+import img1 from '../assets/pictures/picture1.webp';
+import img2 from '../assets/pictures/picture2.webp';
+import img3 from '../assets/pictures/picture3.webp';
+import img4 from '../assets/pictures/picture4.webp';
+import img5 from '../assets/pictures/picture5.webp';
+import img6 from '../assets/pictures/picture6.webp';
+import img7 from '../assets/pictures/picture7.webp';
+import img8 from '../assets/pictures/picture8.jpg';
+import img9 from '../assets/pictures/picture9.webp';
+import vid1 from '../assets/videos/examplevid.mp4';
+
+const imageMap = {
+  img1: img1,
+  img2: img2,
+  img3: img3,
+  img4: img4,
+  img5: img5,
+  img6: img6,
+  img7: img7,
+  img8: img8,
+  img9: img9,
+};
 
 function Home() {
   const productsSectionRef = useRef(null); // Ref for LATEST DROP section
-  const products = [
-    {
-      id: 1,
-      name: 'Item 1',
-      description: 'Description for Item 1',
-      photos: [img1, img2, img3], // Multiple images
-    },
-    {
-      id: 2,
-      name: 'Item 2',
-      description: 'Description for Item 2',
-      photos: [img4, img5, img6], // Multiple images
-    },
-    {
-      id: 3,
-      name: 'Item 3',
-      description: 'Description for Item 3',
-      photos: [img7, img8, img9], // Multiple images
-    },
-    {
-      id: 4,
-      name: 'Item 4',
-      description: 'Description for Item 4',
-      photos: ['/public/assets/images/item4-1.jpg', '/public/assets/images/item4-2.jpg', '/public/assets/images/item4-3.jpg'], // Multiple images
-    },
-    {
-      id: 5,
-      name: 'Item 5',
-      description: 'Description for Item 5',
-      photos: ['/public/assets/images/item5-1.jpg', '/public/assets/images/item5-2.jpg', '/public/assets/images/item5-3.jpg'], // Multiple images
-    },
-    {
-      id: 6,
-      name: 'Item 6',
-      description: 'Description for Item 6',
-      photos: ['/public/assets/images/item6-1.jpg', '/public/assets/images/item6-2.jpg', '/public/assets/images/item6-3.jpg'], // Multiple images
-    },
-  ];
-
+  const [products, setProducts] = useState([]); // State for fetched products
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;
+
+  const navigate = useNavigate();
+
+  // Fetch products from the backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/api/products'); // Update with your backend URL
+        setProducts(response.data); // Set the fetched data into state
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -69,10 +58,15 @@ function Home() {
     setCurrentIndex((prevIndex) => (prevIndex - itemsPerPage >= 0 ? prevIndex - itemsPerPage : 0));
   };
 
-  const navigate = useNavigate();
-
   const handleProductClick = (product) => {
-    navigate(`/product/${product.id}`, { state: { product } });
+    // Map photos using imageMap
+    const mappedProduct = {
+      ...product,
+      photos: product.photos.map((photo) => imageMap[photo]),
+    };
+
+    // Pass the mapped product to the ProductDetail page
+    navigate(`/product/${product._id}`, { state: { product: mappedProduct } });
   };
 
   return (
@@ -80,7 +74,7 @@ function Home() {
       {/* Top Division - Video Section */}
       <div className="video-section">
         <video autoPlay loop muted>
-          <source src={vid} type="video/mp4" />
+          <source src={vid1} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -93,9 +87,9 @@ function Home() {
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <div className="products-container">
-            {products.slice(currentIndex, currentIndex + itemsPerPage).map((product, index) => (
+          {products.slice(currentIndex, currentIndex + itemsPerPage).map((product, index) => (
               <ProductCard
-                key={product.id}
+                key={product._id}
                 product={product}
                 onClick={() => handleProductClick(product)}
               />
@@ -107,18 +101,18 @@ function Home() {
         </div>
       </div>
 
-      {/* Bottom Division - Slideshow Section */}
+      {/* Bottom Division - Flex Card Section */}
       <div className="slideshow-section">
         <div className="slideshow">
-          <img src={img1} alt="Slide 1" />
-          <img src={img2} alt="Slide 2" />
-          <img src={img3} alt="Slide 3" />
-          <img src={img4} alt="Slide 4" />
-          <img src={img5} alt="Slide 5" />
-          <img src={img6} alt="Slide 6" />
-          <img src={img7} alt="Slide 7" />
-          <img src={img8} alt="Slide 8" />
-          <img src={img9} alt="Slide 9" />
+          <img src={img1} alt="1" />
+          <img src={img2} alt="2" />
+          <img src={img3} alt="3" />
+          <img src={img4} alt="4" />
+          <img src={img5} alt="5" />
+          <img src={img6} alt="6" />
+          <img src={img7} alt="7" />
+          <img src={img8} alt="8" />
+          <img src={img9} alt="9" />
         </div>
       </div>
     </div>
@@ -127,8 +121,8 @@ function Home() {
 
 function ProductCard({ product, onClick }) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false); // Track hover state
-  const intervalRef = useRef(null); // Reference for the slideshow interval
+  const [isHovered, setIsHovered] = useState(false);
+  const intervalRef = useRef(null);
 
   // Start slideshow when hovered
   const startSlideshow = () => {
@@ -142,21 +136,18 @@ function ProductCard({ product, onClick }) {
     clearInterval(intervalRef.current);
   };
 
-  // Handle hover start
   const handleMouseEnter = () => {
     setIsHovered(true);
     startSlideshow();
   };
 
-  // Handle hover end
   const handleMouseLeave = () => {
     setIsHovered(false);
     stopSlideshow();
-    setCurrentPhotoIndex(0); // Optionally reset the slideshow when hover ends
+    setCurrentPhotoIndex(0);
   };
 
   useEffect(() => {
-    // Clean up the interval on component unmount
     return () => clearInterval(intervalRef.current);
   }, []);
 
@@ -167,13 +158,13 @@ function ProductCard({ product, onClick }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <h3>{product.name}</h3>
-      {/* Show slideshow of product photos */}
+      <h3 style={{letterSpacing:'3px', wordSpacing: '5px'}}>{product.name}</h3>
+      <p style={{color:'gray'}}>₹. {product.price}</p>
       <div className="product-images">
         <img
-          src={product.photos[currentPhotoIndex]}
+          src={imageMap[product.photos[currentPhotoIndex]]} // Map string to imported path
           alt={`${product.name} - ${currentPhotoIndex + 1}`}
-          style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+          style={{ width: '100%', height: '85%', borderRadius: '8px' }}
         />
       </div>
     </div>

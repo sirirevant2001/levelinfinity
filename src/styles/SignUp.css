@@ -1,0 +1,134 @@
+.signup-body {
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+  background-color: #ffffff;
+  margin: 50px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.signup-title {
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+input {
+  width: 100%;
+  padding: 5px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  background-color: transparent;
+}
+
+input:focus {
+  border-bottom-color: #000;
+}
+
+.signup-button {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid black;
+  padding: 15px;
+  margin-left: 17.5px;
+  margin-top: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  letter-spacing: 1px;
+  align-items: center;
+}
+
+.signup-button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.login {
+  gap: 15px;
+  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+}
+.login .login-style {
+  margin: 0 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+}
+
+
+
+
+.otp-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.otp-modal h2 {
+  margin-bottom: 15px;
+}
+
+.otp-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otp-modal button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.otp-modal button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+

@@ -10,7 +10,6 @@ const sizeChartData = [
   { size: "XL", chest: "46-48", shoulder: "19", length: "29" }
 ];
 
-// Size Alert Modal Component
 function SizeAlertModal({ onClose }) {
   return (
     <div className="modal-overlay">
@@ -18,6 +17,22 @@ function SizeAlertModal({ onClose }) {
         <h3>Please select a size</h3>
         <p>You need to choose a size before adding this item to the cart or buying it.</p>
         <button onClick={onClose} className="modal-close-button">OK</button>
+      </div>
+    </div>
+  );
+}
+
+function GuestCheckoutModal({ onClose, onGuestCheckout, onLogin }) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content-guest">
+        <h3>You Are Not Logged In</h3>
+        <p>Please log in to access your cart, or continue as a guest for checkout.</p>
+        <div className="modal-actions">
+          <button onClick={onGuestCheckout} className="modal-button-guest">Continue as Guest</button>
+          <button onClick={onLogin} className="modal-button-login">Login</button>
+        </div>
+        <button onClick={onClose} className="modal-close-button">Close</button>
       </div>
     </div>
   );
@@ -36,6 +51,9 @@ function ProductDetail() {
   const [showSizeAlert, setShowSizeAlert] = useState(false);
   const [showItemAlreadyInCart, setShowItemAlreadyInCart] = useState(false);
   const [activeSection, setActiveSection] = useState('description');
+  const [showGuestCheckoutModal, setShowGuestCheckoutModal] = useState(false);
+
+  const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem("userName"));
 
   useEffect(() => {
     if (!product) {
@@ -43,19 +61,18 @@ function ProductDetail() {
     }
   }, [product, navigate]);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = 'Are you sure you want to leave? Your changes will be lost.';
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     event.preventDefault();
+  //     event.returnValue = 'Are you sure you want to leave? Your changes will be lost.';
+  //   };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
 
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, []);
 
   const handleQuantityChange = (increment) => {
     setQuantity((prev) => Math.max(1, prev + increment));
@@ -75,7 +92,7 @@ function ProductDetail() {
       ...product,
       quantity,
       size: selectedSize,
-      image: product.photos[currentImageIndex]
+      image: product.photos[currentImageIndex],
     };
 
     const existingItem = cart.find(
@@ -90,7 +107,14 @@ function ProductDetail() {
       return;
     }
 
-    addToCart(item);
+    if (loggedInUser) {
+      // Logged-in user flow
+      addToCart(item);
+    } else {
+      // Guest user flow
+      addToCart(item); // Add item to cart for guest users
+      setShowGuestCheckoutModal(false); // Close the guest checkout modal if open
+    }
   };
 
   const handleBuyNow = () => {
@@ -103,27 +127,33 @@ function ProductDetail() {
       ...product,
       quantity,
       size: selectedSize,
-      image: product.photos[currentImageIndex]
+      image: product.photos[currentImageIndex],
     };
 
-    const existingItem = cart.find(
-      (cartItem) =>
-        cartItem.id === item.id &&
-        cartItem.size === item.size &&
-        cartItem.quantity === item.quantity
-    );
-
-    if (existingItem) {
-      setShowItemAlreadyInCart(true);
-      return;
+    if (loggedInUser) {
+      const existingItem = cart.find(
+        (cartItem) =>
+          cartItem.id === item.id &&
+          cartItem.size === item.size &&
+          cartItem.quantity === item.quantity
+      );
+  
+      if (existingItem) {
+        setShowItemAlreadyInCart(true);
+        return;
+      }
+      else{
+        navigate("/checkout", {
+          state: {
+            cart: [item],
+            total: item.price * quantity,
+          },
+        });
+      }
+      
+    } else {
+      setShowGuestCheckoutModal(true);
     }
-
-    navigate('/checkout', {
-      state: {
-        cart: [item],
-        total: item.price * quantity
-      },
-    });
   };
 
   const handleNextImage = () => {
@@ -142,18 +172,27 @@ function ProductDetail() {
     setActiveSection(activeSection === section ? null : section);
   };
 
-  const goToCheckout = () => {
-    navigate('/checkout', {
+  const handleGuestCheckout = () => {
+    setShowGuestCheckoutModal(false);
+    const item = {
+      ...product,
+      quantity,
+      size: selectedSize,
+      image: product.photos[currentImageIndex],
+    };
+    navigate("/checkout", {
       state: {
-        cart,
-        total: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+        cart: [item],
+        total: item.price * quantity,
+        guest: true,
       },
     });
   };
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  const handleLoginRedirect = () => {
+    setShowGuestCheckoutModal(false);
+    navigate("/login");
+  };
 
   return (
     <div className="detail-container">
@@ -213,7 +252,8 @@ function ProductDetail() {
       </div>
 
       <div className="actions-container">
-        <h2 className="detail-title">{product.name}</h2>
+        <h2 style={{letterSpacing:'3px'}} className="detail-title">{product.name}</h2>
+        <p style={{color:'gray'}} className="detail-title">₹. {product.price}</p>
         <div className="quantity-selector">
           <button onClick={() => handleQuantityChange(-1)}>-</button>
           <span>{quantity}</span>
@@ -222,13 +262,17 @@ function ProductDetail() {
 
         <label>Select Size:</label>
         <div className="size-selector">
-          {["S", "M", "L", "XL"].map((size) => (
+          {product.sizes.map((sizeObj) => (
             <button
-              key={size}
-              onClick={() => handleSizeSelect(size)}
-              className={selectedSize === size ? "size-selected" : ""}
+              key={sizeObj.size}
+              onClick={() => handleSizeSelect(sizeObj.size)}
+              className={`size-button ${
+                sizeObj.inventory === 0 ? "size-disabled" : selectedSize === sizeObj.size ? "size-selected" : ""
+              }`}
+              disabled={sizeObj.inventory === 0}
+              title={sizeObj.inventory === 0 ? "Out of stock" : ""}
             >
-              {size}
+              {sizeObj.size}
             </button>
           ))}
         </div>
@@ -281,6 +325,14 @@ function ProductDetail() {
             <button onClick={() => setShowItemAlreadyInCart(false)} className="modal-close-button">OK</button>
           </div>
         </div>
+      )}
+
+      {showGuestCheckoutModal && (
+        <GuestCheckoutModal
+          onClose={() => setShowGuestCheckoutModal(false)}
+          onGuestCheckout={handleGuestCheckout}
+          onLogin={handleLoginRedirect}
+        />
       )}
     </div>
   );

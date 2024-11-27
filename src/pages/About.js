@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/About.css'; // CSS file for styling
-import img from '../assests/pictures/picture9.webp'; // Update with your image path
+import img from '../assets/pictures/picture9.webp'; // Update with your image path
 
 function AboutUs() {
   return (

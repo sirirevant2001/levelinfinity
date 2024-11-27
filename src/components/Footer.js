@@ -9,10 +9,8 @@ function Footer() {
       <div className="footer-top">
         <div className="footer-marquee">
           {/* <span style={{ wordSpacing: "40px" }}>
-            SHIPPING-WORLDWIDE &nbsp; SHIPPING-WORLDWIDE &nbsp;
-            SHIPPING-WORLDWIDE &nbsp; SHIPPING-WORLDWIDE &nbsp;
-            SHIPPING-WORLDWIDE &nbsp; SHIPPING-WORLDWIDE &nbsp;
-            SHIPPING-WORLDWIDE
+            LEVEL-UP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL-UP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            LEVEL-UP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </span> */}
         </div>
       </div>

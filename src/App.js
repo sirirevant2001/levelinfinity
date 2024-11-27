@@ -8,6 +8,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 // import { CartContext } from "../src/pages/CartContext"; // Assuming you have a CartContext
 import '../src/styles/Cart.css'; // Import CSS for styling
 
@@ -39,6 +41,8 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />}/>
+        <Route path="/signup" element={<Signup />}/>
       </Routes>
       <Footer />
     </Router>

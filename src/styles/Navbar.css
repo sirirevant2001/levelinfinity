@@ -7,9 +7,7 @@
   background-color: #ffffff !important;
   color: #000000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: "Prata", serif;
-  font-weight: 400;
-  font-style: normal;
+  
 }
 
 /* Brand Name */
@@ -17,6 +15,9 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: black;
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /*cart count*/
@@ -60,8 +61,20 @@
 }
 
 .navbar-icons {
-  display: flex;
   gap: 15px;
+  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
+}
+.navbar-icons .nav-link {
+  margin: 0 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
 }
 
 .nav-icon {
@@ -79,9 +92,26 @@
 /* Dropdown Styles */
 .dropdown {
   position: relative;
+  font-family: "Josefin Sans", serif;
+  font-size: small;
+  font-style: normal;
 }
 
 .dropdown-menu {
+  position: absolute;
+  top: 250%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-menu-user {
   position: absolute;
   top: 250%;
   left: 0;
@@ -107,3 +137,7 @@
   background-color: #f0f0f0;
   color: #333;
 }
+
+
+
+
